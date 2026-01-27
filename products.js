@@ -1,206 +1,311 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title>تفاصيل المنتج</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+const products = [
+    // ===== متجر نور =====
+    {
+        id: 37,
+        name: "شنط يد و كتف وااااسعة مع محفظة صغيرة",
+        price: "13500 ر.ي",
+        store: "متجر نور",
+        status: "متوفر",
+        category: "شنط",
+        image: "كسع 2.jpeg"
+    },
+    {
+        id: 31,
+        name: "حقائب لاكوست الجلد الأصلي (L - M)",
+        price: "13000 ر.ي",
+        store: "متجر نور",
+        status: "متوفر",
+        category: "شنط",
+        image: "كسعه.jpeg"
+    },
+    {
+        id: 30,
+        name: "مناشف قطن طبيعي 100% بخامة ثقيلة (130×70)",
+        price: "7500 ر.ي",
+        store: "متجر نور",
+        status: "متوفر",
+        category: "منزل",
+        image: "السليمود.jpeg"
+    },
+    {
+        id: 29,
+        name: "الأحذية المريحة والفخمة",
+        price: "8500 ر.ي",
+        store: "متجر نور",
+        status: "متبقي المقاسات 39 و 41",
+        category: "أحذية",
+        image: "جزمات.jpeg"
+    },
+    {
+        id: 28,
+        name: "آلة القهوة الأصلية من RAF",
+        price: "29000 ر.ي",
+        store: "متجر نور",
+        status: "متبقي كمية محدودة",
+        category: "منزل",
+        image: "غلاية.jpeg"
+    },
+    {
+        id: 3,
+        name: "شنط يد نسائية",
+        price: "11500 ر.ي",
+        store: "متجر نور",
+        status: "غير متوفر",
+        category: "شنط",
+        image: "ali.jpeg"
+    },
+    {
+        id: 2,
+        name: "احذية سيليكونية بناتي",
+        price: "4500 ر.ي",
+        store: "متجر نور",
+        status: "غير متوفر",
+        category: "أحذية",
+        image: "ali2.jpeg"
+    },
+    {
+        id: 1,
+        name: "عطر عاشق العود",
+        price: "60 ر.س",
+        store: "متجر نور",
+        status: "متوفر",
+        category: "عطور",
+        image: "https://via.placeholder.com/200x120?text=عطر"
+    },
 
-<style>
-body { 
-    margin: 0; 
-    font-family: "Segoe UI", Tahoma, Arial, sans-serif; 
-    background: linear-gradient(to bottom, #f9f5f0 0%, #d4af7f 20%, #d4af7f 80%, #f9f5f0 100%); 
-    color: #333; 
-    text-align:center; 
-}
+    // ===== متجر ميم =====
+    {
+        id: 10,
+        name: "بوكس الشتوية – كل دفء الشتاء في بوكس واحد ☕🍲",
+        price: "7000 ر.ي",
+        store: "ميم",
+        status: "متوفر (المتبقي 5 حبات)",
+        category: "منزل",
+        image: "ali 10.jpeg"
+    },
+    {
+        id: 9,
+        name: "ألوان الهولي الآمنة",
+        price: "400 ر.ي",
+        store: "ميم",
+        status: "متوفر",
+        category: "ألعاب",
+        image: "ali 9.jpeg"
+    },
+    {
+        id: 8,
+        name: "لعبة جاكارو (45×45 مع الحبوب والقراطة وكتيب القوانين)",
+        price: "20000 ر.ي",
+        store: "ميم",
+        status: "متوفر",
+        category: "ألعاب",
+        image: "ali 8.jpeg"
+    },
+    {
+        id: 7,
+        name: "اشرح بس انتبه",
+        price: "4000 ر.ي",
+        store: "ميم",
+        status: "متوفر",
+        category: "ألعاب",
+        image: "ali 7.jpeg"
+    },
+    {
+        id: 6,
+        name: "لعبة شو الكلمة",
+        price: "4000 ر.ي",
+        store: "ميم",
+        status: "متوفر",
+        category: "ألعاب",
+        image: "ali 6.jpeg"
+    },
+    {
+        id: 5,
+        name: "لعبة سؤال وتحدي",
+        price: "3500 ر.ي",
+        store: "ميم",
+        status: "متوفر",
+        category: "ألعاب",
+        image: "ali 5.jpeg"
+    },
+    {
+        id: 4,
+        name: "لعبة قول بس لا تقول",
+        price: "5000 ر.ي",
+        store: "ميم",
+        status: "متوفر",
+        category: "ألعاب",
+        image: "ali 4.jpeg"
+    },
 
-.header { 
-    background: #d4af7f; 
-    padding: 20px; 
-    font-size: 24px; 
-    font-weight: bold; 
-    color: white; 
-}
+    // ===== متجر حكاية غرزة =====
+    { id:27, name:"حافظ نظارة بشكل كرتوني", price:"3500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"حافظ للنظارة بشكل كرتوني.jpeg" },
+    { id:26, name:"حافظ نظارة بشكل ميدالية", price:"3000 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"حافظ للنضارة بشكل ميدالية .jpeg" },
+    { id:25, name:"قفازات شكل قطة", price:"4500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"قفازات شكل قطة .jpeg" },
+    { id:24, name:"شباصات ورد", price:"2500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"شباصات ورد.jpeg" },
+    { id:23, name:"تاج", price:"2500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"تاج.jpeg" },
+    { id:22, name:"بندانة", price:"3500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"بندانة.jpeg" },
+    { id:21, name:"طوق شعر وتوكات", price:"4500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"طوق شعر.jpeg" },
+    { id:20, name:"غلاف مصحف", price:"7500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"غلاف مصحف.jpeg" },
+    { id:19, name:"مفرش الورد", price:"1500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"منزل", image:"مفرش الورد.jpeg" },
+    { id:18, name:"شال ميكاسا", price:"20500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"ملابس", image:"شال.jpeg" },
+    { id:17, name:"جراب لقارورة الحليب (وسط)", price:"2500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"شراب لقارورة الحليب.jpeg" },
+    { id:16, name:"احذية للمواليد", price:"8500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"أحذية", image:"احذية مواليد .jpeg" },
+    { id:15, name:"جرابات للمواليد", price:"2500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"ملابس", image:"جرابات صغيرة.jpeg" },
+    { id:14, name:"طواقي صلاة (أولاد / رجال)", price:"الأولاد 5500 – الرجال 6500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"ملابس", image:"طاقية اولاد ورجال.jpeg" },
+    { id:13, name:"ايس كاب للمواليد", price:"3500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"ملابس", image:"كاوفى ولادية .jpeg" },
+    { id:12, name:"غطاء لفناجين العدة (طقم)", price:"4500 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"منزل", image:"العدة.jpeg" },
+    { id:11, name:"جراب للزمزمية", price:"4000 ر.ي", store:"حكاية غرزة", status:"متوفر", category:"إكسسوارات", image:"جراب للزمزمية.jpeg" },
 
-.product-container { 
-    background: #fff8f0; 
-    margin: 30px auto; 
-    border-radius: 15px; 
-    padding: 20px; 
-    width: 90%; 
-    max-width: 500px; 
-    box-shadow: 0 10px 25px rgba(212,175,127,0.4); 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-}
+    // ===== متجر لولو سكراب =====
+    {
+        id: 0,
+        name: "منتج تعريفي – متجر لولو سكراب",
+        price: "—",
+        store: "لولو سكراب",
+        status: "متوفر",
+        category: "تعريفي",
+        image: "ali1.jpeg"
+    },
 
-.img-wrapper{
-    position: relative;
-    width:100%;
-}
+    // ===== متجر الجمال =====
+    {
+        id: 40,
+        name: "مورد ومنفخ شفايف طبيعي 💋🍓 رهيييب يغنيك عن الرووج طوال اليووم لتمتلكي شفايف ناعمه ورديه",
+        price: "1800 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "مورد الشفائف.jpeg"
+    },
+    {
+        id: 39,
+        name: "لوشن الجمال💓 برائحة عطر عساف ❤‍🔥😍😍❤‍🔥❤‍🔥❤‍🔥 معطر ومرطب وملمع ومنعم الجسم 😍😍😍😍",
+        price: "1300 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "بودرة.jpeg"
+    },
+    {
+        id: 36,
+        name: "الزييت الفخم والأروع وصل الححل الأفضل لكل مشاكل الشعر",
+        price: "3500 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "الزيت ابو 3.jpeg"
+    },
+    {
+        id: 35,
+        name: "معجون الجمال – مجموعة من الأعشاب الطبيعية",
+        price: "2000 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "ابتسامة.jpeg"
+    },
+    {
+        id: 34,
+        name: "صابونيه الجمال ب العكر الفاسي",
+        price: "3800 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "الخلطة الثالثة .jpeg"
+    },
+    {
+        id: 33,
+        name: "صابونية الجمال الطبيعية بالكركم",
+        price: "3800 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "الخلطة الثانية.jpeg"
+    },
+    {
+        id: 32,
+        name: "خلطه صابونه الجمال بنيله الزرقاء 💙",
+        price: "3800 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "عناية",
+        image: "الخلطة الاولى.jpeg"
+    },
 
-.product-img { 
-    width: 100%; 
-    aspect-ratio: 1 / 1;
-    border-radius: 15px; 
-    margin-bottom: 20px; 
-    background-color: #eee; 
-    background-size: contain;
-    background-position: center; 
-    background-repeat: no-repeat;
-}
+    // ===== متجر حسان شي ان =====
+    {
+        id: 41,
+        name: "ملصقات",
+        price: "التواصل 774257557",
+        store: "حسان شي ان",
+        status: "متوفر",
+        category: "إكسسوارات",
+        image: "شي ان.jpeg"
+    },
+    {
+        id: 42,
+        name: "احذية ذات الوان رهيييييبة",
+        price: "27200 ر.ي",
+        store: "حسان شي ان",
+        status: "متوفر",
+        category: "أحذية",
+        image: "شي ان 1.jpeg"
+    },
+    {
+        id: 43,
+        name: "حذا بجلد ممتاز",
+        price: "22000 ر.ي",
+        store: "حسان شي ان",
+        status: "متوفر",
+        category: "أحذية",
+        image: "شي ان 2.jpeg"
+    },
 
-/* زر المفضلة */
-.favorite-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.favorite-btn.active {
-    color: red;
-}
-
-.product-name { 
-    font-size: 24px; 
-    font-weight: bold; 
-    margin-bottom: 10px; 
-    color: #8b5e3c; 
-}
-
-.product-price { 
-    font-size: 20px; 
-    color: #d49f5f; 
-    margin-bottom: 10px; 
-}
-
-.product-store { 
-    font-size: 18px; 
-    color: #7b5fcf; 
-    margin-bottom: 10px; 
-}
-
-.product-status { 
-    font-size: 18px; 
-    color: #a67c52; 
-    margin-bottom: 20px; 
-}
-
-.btn-order, .btn-back { 
-    padding: 12px; 
-    width: 100%; 
-    margin-bottom: 10px; 
-    border: none; 
-    border-radius: 12px; 
-    font-weight: bold; 
-    cursor: pointer; 
-}
-
-.btn-order { 
-    background: linear-gradient(45deg, #d4af7f, #f7e1b5); 
-    color: #333; 
-}
-
-.btn-back { 
-    background: #f7f0e0; 
-    color: #8b5e3c; 
-}
-
-@media (max-width: 600px) {
-    .product-container {
-        max-width: 95%;
+    // ===== منتجات فرسان الوفاء تم تحويلها لمتجر الجمال + تقريب الأسعار =====
+    {
+        id: 49,
+        name: "🧼 معطّر ومنظّف السيفون 🧼",
+        price: "2000 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "منزل",
+        image: "السيفون.jpeg"
+    },
+    {
+        id: 48,
+        name: "أعواد شوا عملية وقوية",
+        price: "2000 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "منزل",
+        image: "الكيوس.jpeg"
+    },
+    {
+        id: 47,
+        name: "درزن ملاعق جودة ممتازة",
+        price: "2000 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "منزل",
+        image: "الملاعق.jpeg"
+    },
+    {
+        id: 45,
+        name: "علب عملية وأنيقة تفرّق بالتنظيم 💕",
+        price: "3000 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "منزل",
+        image: "علب.jpeg"
+    },
+    {
+        id: 44,
+        name: "مناديل رمضان – تصميم أنيق يكمّل ضيافتك",
+        price: "2000 ر.ي",
+        store: "متجر الجمال",
+        status: "متوفر",
+        category: "منزل",
+        image: "مناديل.jpeg"
     }
-}
-</style>
-</head>
-
-<body>
-
-<div class="header">تفاصيل المنتج</div>
-
-<div class="product-container">
-
-    <div class="img-wrapper">
-        <button class="favorite-btn" id="favBtn">♡</button>
-        <div class="product-img" id="product-img"></div>
-    </div>
-
-    <div class="product-name" id="product-name"></div>
-    <div class="product-price" id="product-price"></div>
-    <div class="product-store" id="product-store"></div>
-    <div class="product-status" id="product-status"></div>
-
-    <button class="btn-order" id="order-btn">اطلب الآن</button>
-    <button class="btn-back" onclick="window.history.back();">عودة</button>
-</div>
-
-<script src="products.js"></script>
-<script>
-const userName = localStorage.getItem("userName") || "مستخدم";
-const userRegion = localStorage.getItem("userRegion") || "";
-
-const urlParams = new URLSearchParams(window.location.search);
-const productId = parseInt(urlParams.get('productId'));
-
-const product = products.find(p => p.id === productId) || products[0];
-
-document.getElementById("product-name").innerText = product.name;
-document.getElementById("product-price").innerText = product.price;
-document.getElementById("product-store").innerText = product.store;
-document.getElementById("product-status").innerText = product.status;
-document.getElementById("product-img").style.backgroundImage = `url('${product.image}')`;
-
-/* الطلب */
-document.getElementById("order-btn").onclick = () => {
-    const msg =
-        `الاسم: ${userName}%0A` +
-        `المنطقة: ${userRegion}%0A` +
-        `المنتج: ${product.name}%0A` +
-        `السعر: ${product.price}%0A` +
-        `المتجر: ${product.store}`;
-    window.open(`https://wa.me/967774257557?text=${msg}`, '_blank');
-};
-
-/* المفضلة */
-const favBtn = document.getElementById("favBtn");
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-function isFav(id){
-    return favorites.includes(id);
-}
-
-function updateFavBtn(){
-    if(isFav(product.id)){
-        favBtn.innerText = "❤";
-        favBtn.classList.add("active");
-    }else{
-        favBtn.innerText = "♡";
-        favBtn.classList.remove("active");
-    }
-}
-
-favBtn.onclick = (e) => {
-    e.stopPropagation();
-    if(isFav(product.id)){
-        favorites = favorites.filter(f => f !== product.id);
-    }else{
-        favorites.push(product.id);
-    }
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    updateFavBtn();
-};
-
-updateFavBtn();
-</script>
-
-</body>
-</html>
+].sort((a, b) => b.id - a.id);
