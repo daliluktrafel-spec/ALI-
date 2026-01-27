@@ -35,7 +35,6 @@ body {
     cursor: pointer;
 }
 
-/* ===== التصنيفات ===== */
 .categories {
     display: flex;
     gap: 10px;
@@ -60,7 +59,6 @@ body {
     color: white;
 }
 
-/* ===== تصغير التصنيفات للجوال ===== */
 @media (max-width: 600px) {
     .category-btn {
         min-width: 80px;
@@ -136,8 +134,13 @@ body {
     <div class="fav-top" onclick="showFavorites()">❤️ <span id="favCount">0</span></div>
 </div>
 
-<!-- ===== التصنيفات الديناميكية ===== -->
-<div id="categories" class="categories"></div>
+<div id="categories" class="categories">
+    <div class="category-btn" onclick="filterByCategory('حذ')">👟 أحذية</div>
+    <div class="category-btn" onclick="filterByCategory('شنط')">👜 شنط</div>
+    <div class="category-btn" onclick="filterByCategory('لعبة')">🎲 ألعاب</div>
+    <div class="category-btn" onclick="filterByCategory('صاب')">💄 عناية</div>
+    <div class="category-btn" onclick="filterByCategory('طوق')">👕 ملابس</div>
+</div>
 
 <div style="padding:15px;text-align:center;">
     <input
@@ -170,25 +173,10 @@ document.getElementById("welcome").childNodes[0].nodeValue =
 let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 document.getElementById("favCount").innerText = favorites.length;
 
-/* ===== إنشاء التصنيفات تلقائيًا ===== */
-function generateCategories() {
-    const categoriesDiv = document.getElementById("categories");
-    categoriesDiv.innerHTML = "";
-    const categoriesSet = new Set(products.map(p => p.category));
-    categoriesSet.forEach(cat => {
-        const btn = document.createElement("div");
-        btn.className = "category-btn";
-        btn.innerText = cat;
-        btn.onclick = () => filterByCategory(cat);
-        categoriesDiv.appendChild(btn);
-    });
-}
-
-function filterByCategory(cat){
+function filterByCategory(key){
     showSection("all");
-    renderProducts("all", p => p.category === cat);
+    renderProducts("all", p => p.name.includes(key));
 }
-/* ===== نهاية التصنيفات الديناميكية ===== */
 
 function shortName(text, max = 45){
     return text.length > max ? text.slice(0, max) + "…" : text;
@@ -202,14 +190,37 @@ function renderProducts(containerId, filter = () => true){
     products.filter(filter).forEach(p=>{
         const d = document.createElement("div");
         d.className = "card";
-        d.onclick = ()=>location.href=`product.html?productId=${p.id}`;
+
         d.innerHTML = `
             <div class="product-img" style="background-image:url('${p.image}')"></div>
             <div class="product-name">${shortName(p.name)}</div>
             <div class="product-price">${p.price}</div>
             <div class="product-store">${p.store}</div>
             <div class="product-status">${p.status}</div>
+            <button class="fav-btn" style="margin-top:5px;padding:5px;border:none;border-radius:10px;cursor:pointer;">
+                ❤️ ${favorites.includes(p.id) ? 'إزالة من المفضلة' : 'أضف للمفضلة'}
+            </button>
         `;
+
+        d.onclick = (e)=>{
+            if(e.target.tagName !== 'BUTTON'){
+                location.href=`product.html?productId=${p.id}`;
+            }
+        };
+
+        const btn = d.querySelector(".fav-btn");
+        btn.onclick = (e)=>{
+            e.stopPropagation();
+            if(favorites.includes(p.id)){
+                favorites = favorites.filter(fid=>fid!==p.id);
+            } else {
+                favorites.push(p.id);
+            }
+            localStorage.setItem("favorites", JSON.stringify(favorites));
+            document.getElementById("favCount").innerText = favorites.length;
+            renderProducts(containerId, filter);
+        };
+
         c.appendChild(d);
     });
 }
@@ -239,7 +250,6 @@ function showSection(id,el){
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
     if(el) el.classList.add("active");
 
-    // إخفاء التصنيفات في تبويب المتاجر فقط
     if(id === "stores"){
         document.getElementById("categories").style.display = "none";
     } else {
@@ -260,8 +270,6 @@ function smartSearch(){
     );
 }
 
-/* ===== تهيئة الصفحة ===== */
-generateCategories();
 renderProducts("all");
 </script>
 
